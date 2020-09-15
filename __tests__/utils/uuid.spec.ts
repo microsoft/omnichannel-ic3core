@@ -9,7 +9,7 @@ describe('uuid', () => {
         expect(typeof uuid).toBe('string');
     });
 
-    it('uuid.uuidv4() should return a uuidv4', () => {
+    it('uuid.uuidv4() should return an uuidv4', () => {
         const uuid = uuidv4();
         const found = uuid.match(uuidV4Regex);
 
