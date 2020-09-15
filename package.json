@@ -1,0 +1,23 @@
+{
+  "name": "@microsoft/omnichannel-ic3core",
+  "version": "0.1.0-0",
+  "description": "",
+  "files": [
+    "lib/**/*"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build:tsc": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Microsoft Corporation",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "buffer": "^5.6.0"
+  }
+}

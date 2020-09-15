@@ -1,3 +1,6 @@
+# Omnichannel IC3Core
+
+IC3 client to interact with Microsoft Teams IC3 APIs. This is compatible on Web, Node, and Mobile using React Native.
 
 # Contributing
 

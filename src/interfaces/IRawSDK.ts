@@ -1,0 +1,41 @@
+import FileSharingProtocolType from "../model/FileSharingProtocolType";
+import FileStatus from "../model/FileStatus";
+import HostType from "./HostType";
+import IFileInfo from "./IFileInfo";
+import IFileMetadata from "../model/IFileMetadata";
+import IInitializationInfo from "../model/IInitializationInfo";
+import IMessageProperties from "../model/IMessageProperties";
+import IPerson from "../model/IPerson";
+import IRawBotMessage from "./IRawBotMessage";
+import IRawConversation from "../model/IRawConversation";
+import IRawLogger from "../logging/IRawLogger";
+import IRawMessage from "../model/IRawMessage";
+import IRawSDKSetupParameters from "./IRawSDKSetupParameters";
+import IRawThread from "./IRawThread";
+import ProtocolType from "./ProtocoleType";
+import TypingStatus from "../model/TypingStatus";
+
+export default interface IRawSDK {
+    id: string;
+    hostType: HostType;
+    protocolType: ProtocolType;
+    logger: IRawLogger | undefined;
+    setup(setupParams: IRawSDKSetupParameters): Promise<void>;
+    initialize(sessionInfo: IInitializationInfo): Promise<void>;
+    update(sessionInfo: IInitializationInfo): Promise<void>;
+    dispose(): Promise<void>;
+    joinConversation(conversationId: string, sendHeartBeat?: boolean): Promise<IRawConversation>;
+    sendMessage(conversation: IRawConversation, message: IRawMessage): Promise<void>;
+    getMessages(conversation: IRawConversation): Promise<IRawMessage[]>;
+    registerOnNewMessage(conversation: IRawConversation, callback: (message: IRawMessage) => void): Promise<void>;
+    registerOnThreadUpdate(conversation: IRawConversation, callback: (message: IRawThread) => void): Promise<void>;
+    sendFileData(conversation: IRawConversation, fileInfo: IFileInfo, fileSharingProtocolType?: FileSharingProtocolType): Promise<IFileMetadata>;
+    downloadFileData(conversation: IRawConversation, fileMetadata: IFileMetadata): Promise<ArrayBuffer>;
+    disconnectFromConversation(conversation: IRawConversation): Promise<void>;
+    getFileStatus(conversation: IRawConversation, fileMetadata: IFileMetadata): Promise<FileStatus>;
+    indicateTypingStatus(conversation: IRawConversation, typingStatus: TypingStatus, optionalProperties?: IMessageProperties): Promise<void>;
+    sendFileMessage(conversation: IRawConversation, fileMetadata: IFileMetadata, message: IRawMessage): Promise<void>;
+    sendMessageToBot(conversation: IRawConversation, botId: string, botMessage: IRawBotMessage): Promise<void>;
+    getMembers(conversation: IRawConversation): Promise<IPerson[]>;
+    setDebug(flag: boolean): void;
+}
