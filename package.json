@@ -9,11 +9,15 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build:tsc": "tsc",
+    "lint": "eslint src --ext .ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Microsoft Corporation",
   "license": "MIT",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
+    "eslint": "^7.9.0",
     "typescript": "^3.9.5"
   },
   "dependencies": {
