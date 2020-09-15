@@ -103,7 +103,7 @@ export default class Util {
         const properties: IKeyValuePair = {};
         properties.deliveryMode = message.deliveryMode.toString();
         properties.files = JSON.stringify([this.createFileProperty(fileInfo, ic3Info)]);
-        properties.importance = '';  // tslint:disable-line:quotemark
+        properties.importance = '';
         properties.subject = "";
         if (message.tags) {
             const tags: string[] = [];
@@ -120,7 +120,6 @@ export default class Util {
             ? true
             : false;
         return {
-            // tslint:disable:no-http-string quotemark object-literal-sort-keys
             '@type': 'http://schema.skype.com/File',
             'type': fileInfo.type,
             'itemid': '',
@@ -145,12 +144,9 @@ export default class Util {
                 previewUrl: ''
             }
         } as IIC3FileProperty;
-        // tslint:enable:no-http-string quotemark object-literal-sort-keys
-
     }
 
     public static getNameAndExtension(filename: string): { name: string, extension: string } {
-        // tslint:disable:quotemark
         const nameAndExtensionMatcher = (filename || '').split('.');
         let name = '';
         let extension = '';
@@ -161,7 +157,6 @@ export default class Util {
             extension = '';
             name = nameAndExtensionMatcher[0];
         }
-        // tslint:enable:quotemark
         return { name, extension };
     }
 
@@ -338,9 +333,7 @@ export default class Util {
         return Util.parseDomain(url) as string;
     }
 
-    public static shouldRetryOnFailure(status: number): boolean { // tslint:disable-line variable-name
+    public static shouldRetryOnFailure(status: number): boolean {
         return (status !== HttpCode.Accepted && status !== HttpCode.Created);
     }
-
-    // TODO: Port missing methods
 }

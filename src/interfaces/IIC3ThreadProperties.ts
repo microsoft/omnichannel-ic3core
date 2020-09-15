@@ -8,5 +8,5 @@ export default interface IIC3ThreadProperties {
     threadType: IC3ThreadType;
     creator: string;
     historydisclosed: string;
-    capabilities: any[]; // tslint:disable-line:no-any
+    capabilities: any[];
 }

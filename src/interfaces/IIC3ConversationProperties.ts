@@ -8,8 +8,8 @@ export default interface IIC3ConversationProperties {
     conversationstatus?: string;
     lastimreceivedtime: string;
     conversationstatusproperties?: IIC3ConversationStatusProperties;
-    alerts?: any; // tslint:disable-line:no-any
-    alertmatches?: any; // tslint:disable-line:no-any
+    alerts?: any;
+    alertmatches?: any;
     pinned?: string;
     favorite?: string;
     topic?: string;

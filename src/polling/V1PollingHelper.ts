@@ -6,7 +6,7 @@ import RequestHelper from "../http/RequestHelper";
 import Util from "../common/Util";
 
 class V1PollingHelper {
-    public static poll(url: string, registrationToken: string, callback: (jqXHR: any) => void): Promise<any> { // tslint:disable-line:no-any
+    public static poll(url: string, registrationToken: string, callback: (jqXHR: any) => void): Promise<any> {
         const headers: any = RequestHelper.getDefaultIC3Headers();
         headers[HttpHeaders.RegistrationTokenHeader] = registrationToken;
         headers[HttpHeaders.ContentTypeHeader] = Constants.ContentTypeJson;

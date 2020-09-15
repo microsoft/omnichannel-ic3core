@@ -3,7 +3,7 @@ export default interface IIC3ThreadMember {
     type: string;
     userLink: string;
     role: string;
-    capabilities: any[]; // tslint:disable-line:no-any
+    capabilities: any[];
     linkedMri: string;
     cid: string;
     userTile: string;
@@ -11,7 +11,7 @@ export default interface IIC3ThreadMember {
     isFollowing: boolean;
     isModerator: boolean;
     isReader: boolean;
-    memberExpirationTime: any; // tslint:disable-line:no-any
-    expirationTimeInSeconds: any; // tslint:disable-line:no-any
+    memberExpirationTime: any;
+    expirationTimeInSeconds: any;
     hidden: boolean;
 }

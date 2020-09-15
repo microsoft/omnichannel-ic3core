@@ -1,4 +1,4 @@
-type MatchingIC3EventIndex = { // tslint:disable-line:interface-over-type-literal
+type MatchingIC3EventIndex = {
     previousPollIndex: number;
     newPollIndex: number;
 };

@@ -147,7 +147,6 @@ export class HttpClient {
         return responsePromise;
     }
 
-    // TODO: Can be simplified
     public static isClientError(e: Error): boolean {
         if (!e) {
             return false;

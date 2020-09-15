@@ -1,4 +1,4 @@
-type IIC3GetMessagesRequestQueryParameters = { // tslint:disable-line:interface-over-type-literal
+type IIC3GetMessagesRequestQueryParameters = {
     pageSize: number,
     view: string,
     startTime: number
