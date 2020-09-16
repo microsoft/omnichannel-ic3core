@@ -14,6 +14,12 @@
   },
   "author": "Microsoft Corporation",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/omnichannel-ic3core"
+  },
+  "homepage": "https://github.com/microsoft/omnichannel-ic3core#omnichannel-ic3core",
+  "keywords": [],
   "devDependencies": {
     "@types/jest": "^26.0.13",
     "@typescript-eslint/eslint-plugin": "^4.1.1",
