@@ -1,5 +1,8 @@
 # Omnichannel IC3Core
 
+[![npm version](https://badge.fury.io/js/%40microsoft%2Fomnichannel-ic3core.svg)](https://badge.fury.io/js/%40microsoft%2Fomnichannel-ic3core)
+![Release CI](https://github.com/microsoft/omnichannel-ic3core/workflows/Release%20CI/badge.svg)
+
 IC3 client to interact with Microsoft Teams IC3 APIs. This is compatible on Web, Node, and Mobile using React Native.
 
 # Contributing
