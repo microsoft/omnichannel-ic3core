@@ -1,3 +1,9 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-useless-escape */
+
 import Constants from "./Constants";
 import DeliveryMode from "../model/DeliveryMode";
 import FileSharingProtocolType from "../model/FileSharingProtocolType";

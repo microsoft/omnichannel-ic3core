@@ -1,3 +1,9 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable security/detect-object-injection */
+
 import HttpHeaders from "../http/HttpHeaders";
 import ITimer from "./ITimer";
 
