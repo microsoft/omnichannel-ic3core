@@ -1,3 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable no-useless-escape */
+/* eslint-disable security/detect-object-injection */
+
 import Constants from "../common/Constants";
 import HttpHeaders from "../http/HttpHeaders";
 import IC3PollingV1InterestedResources from "../model/IC3PollingV1InterestedResources";

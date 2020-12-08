@@ -1,3 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable security/detect-object-injection */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+
 import Constants from '../common/Constants';
 import HostType from "../interfaces/HostType";
 import HttpHeaders from '../http/HttpHeaders';

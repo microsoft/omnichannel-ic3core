@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import HostType from "../interfaces/HostType";
 import ProtocolType from "../interfaces/ProtocoleType";
 import IConversation from "../model/IConversation";
@@ -81,14 +85,14 @@ export default abstract class ClientBridge implements IRawSDK {
             return clientConversation;
         });
     }
-    
+
     public async registerOnNewMessage(conversation: IRawConversation, callback: (message: IRawMessage) => void) {
         return Promise.resolve();
     }
 
     public async registerOnThreadUpdate(conversation: IRawConversation, callback: (message: IRawThread) => void) {
         return Promise.resolve();
-    }    
+    }
 
     // Web based
     public uploadFile(conversation: IRawConversation, fileToSend: File, fileSharingProtocolType?: FileSharingProtocolType): Promise<any> {

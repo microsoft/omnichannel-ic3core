@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import ClientBridgeFactory from "./ClientBridgeFactory";
 import IClientSDKInitializationParameters from "../model/IClientSDKInitializationParameters";
 import IProtocolInfo from "../common/IProtocolInfo";

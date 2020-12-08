@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+
 import ClientBridge from "./ClientBridge";
 import FileSharingProtocolType from "../model/FileSharingProtocolType";
 import FileStatus from "../model/FileStatus";
@@ -40,7 +44,7 @@ export default class FramelessBridge extends ClientBridge {
 
     public onRegisterOnThreadUpdate(conversation: IRawConversation): Promise<void> {
         return Promise.resolve();
-    }    
+    }
 
     public initialize(sessionInfo: IInitializationInfo): Promise<void> {
         return this.protocolAdapter.initialize(sessionInfo);
@@ -70,7 +74,7 @@ export default class FramelessBridge extends ClientBridge {
         return this.protocolAdapter.joinConversation(conversationId, sendHeartBeat);
     }
 
-    public sendFileData(conversation: IRawConversation, fileInfo: IFileInfo, fileSharingProtocolType?: FileSharingProtocolType): Promise<IFileMetadata> { 
+    public sendFileData(conversation: IRawConversation, fileInfo: IFileInfo, fileSharingProtocolType?: FileSharingProtocolType): Promise<IFileMetadata> {
         return this.protocolAdapter.sendFileData(conversation, fileInfo, fileSharingProtocolType);
     }
 
