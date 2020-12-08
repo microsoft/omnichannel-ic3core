@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import IIC3Info from "./IIC3Info";
 import IRawSDK from "./IRawSDK";
 

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import IC3ThreadType from "../enums/IC3ThreadType";
 
 export default interface IIC3ThreadProperties {
