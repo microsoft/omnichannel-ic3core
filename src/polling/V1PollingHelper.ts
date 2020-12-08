@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import Constants from "../common/Constants";
 import { HttpClient, IHttpRequestAttributes } from "../http/HttpClient";
 import HttpHeaders from "../http/HttpHeaders";

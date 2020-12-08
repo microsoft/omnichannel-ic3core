@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import IIC3Info from "../interfaces/IIC3Info";
 import ServiceEndpointHelper from "../common/ServiceEndpointHelper";
 import V1PollingHelper from "./V1PollingHelper";
