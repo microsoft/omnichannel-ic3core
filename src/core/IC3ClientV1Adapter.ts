@@ -286,7 +286,7 @@ export default class IC3ClientV1Adapter extends IC3ClientAdapter implements IIC3
         const currentIc3Initializer = this.ic3Initializer!;
         const newIc3Initializer = new IC3Initializer();
 
-        const currentUpdateTokenClearTimeoutHandle: any = this.updateTokenClearTimeoutHandle; // tslint:disable-line:no-any
+        const currentUpdateTokenClearTimeoutHandle: any = this.updateTokenClearTimeoutHandle;
         const currentIc3Info: IIC3Info = this.ic3Info!;
         let newIc3Info: IIC3Info;
         let matchingIC3EventIndex: MatchingIC3EventIndex;
