@@ -1,5 +1,3 @@
-
-
 import IConversation from './IConversation';
 import IMessage from './IMessage';
 

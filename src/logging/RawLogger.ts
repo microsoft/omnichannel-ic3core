@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
 import IRawLogger from "./IRawLogger";
 import IRawSDK from "../interfaces/IRawSDK";
 import Utilities from "../common/Utilities";
@@ -26,7 +24,7 @@ export default class RawLogger implements IRawLogger {
         }
     }
 
-    public logEvent(logLevel: LogLevel, logData: IIC3SDKLogData) {
+    public logEvent(logLevel: LogLevel, logData: IIC3SDKLogData): void {
         if (this.isLoggingEnabled()) {
             setTimeout(this.logger.logClientSdkTelemetryEvent.bind(this.logger), 0, logLevel, logData);
         }
