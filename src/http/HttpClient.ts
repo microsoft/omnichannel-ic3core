@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import Utilities from "../common/Utilities";
 import Constants from "../common/Constants";
@@ -162,7 +161,7 @@ export class HttpClient {
         return isClientError;
     }
 
-    public static setLogger(logger: IRawLogger) {
+    public static setLogger(logger: IRawLogger): void {
         HttpClient.logger = logger;
     }
 
