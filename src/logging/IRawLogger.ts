@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 import LogLevel from "./LogLevel";
 import IIC3TelemetryCustomData from "./IIC3TelemetryCustomData";
 

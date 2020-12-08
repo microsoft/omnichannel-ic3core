@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 import IRawLogger from "./IRawLogger";
 import IRawSDK from "../interfaces/IRawSDK";
 import Utilities from "../common/Utilities";
