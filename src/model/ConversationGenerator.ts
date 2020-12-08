@@ -1,4 +1,4 @@
-/* eslint-disable  @typescript-eslint/explicit-module-boundary-types */
+
 
 import IConversation from './IConversation';
 import IMessage from './IMessage';
@@ -12,7 +12,7 @@ export default class ConversationGenerator {
         this.fileMessagesObservers = [];
     }
 
-    public generateMessage(conversationId: string, message: IMessage) {
+    public generateMessage(conversationId: string, message: IMessage): void {
         const conversation = {
             id: conversationId
         };
@@ -22,7 +22,7 @@ export default class ConversationGenerator {
         });
     }
 
-    public generateFileMessage(conversationId: string, message: IMessage, file: File) {
+    public generateFileMessage(conversationId: string, message: IMessage, file: File): void {
         const conversation = {
             id: conversationId
         };
@@ -32,11 +32,11 @@ export default class ConversationGenerator {
         });
     }
 
-    public subscribeToMessages(subscriber: (conversation: IConversation, message: IMessage) => void) {
+    public subscribeToMessages(subscriber: (conversation: IConversation, message: IMessage) => void): void {
         this.messagesObservers.push(subscriber);
     }
 
-    public subscribeToFileMessages(subscriber: (conversation: IConversation, message: IMessage, file: File) => void) {
+    public subscribeToFileMessages(subscriber: (conversation: IConversation, message: IMessage, file: File) => void): void {
         this.fileMessagesObservers.push(subscriber);
     }
 }
