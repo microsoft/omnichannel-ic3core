@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 import Utilities from "../common/Utilities";
 import Constants from "../common/Constants";
 import IC3TelemetryEvent from "../logging/IC3TelemetryEvent";

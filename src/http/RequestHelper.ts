@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 import Constants from '../common/Constants';
 import IIC3GetMessagesRequestQueryParameters from '../model/IIC3GetMessagesRequestQueryParameters';
 import {uuidv4} from '../utils/uuid';
