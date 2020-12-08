@@ -6,7 +6,6 @@ import IFileMetadata from './IFileMetadata';
 import IMessage from './IMessage';
 import IMessageProperties from './IMessageProperties';
 import IPerson from './IPerson';
-import IRawConversation from './IRawConversation';
 import IThread from './IThread';
 import TypingStatus from './TypingStatus';
 

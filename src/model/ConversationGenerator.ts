@@ -1,3 +1,5 @@
+/* eslint-disable  @typescript-eslint/explicit-module-boundary-types */
+
 import IConversation from './IConversation';
 import IMessage from './IMessage';
 
