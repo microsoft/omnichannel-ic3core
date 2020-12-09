@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
 
 import AmsHelper from "../ams/AmsHelper";
 import Constants from "../common/Constants";
@@ -102,7 +101,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         return Promise.resolve();
     }
 
-    public joinConversation(conversationId: string, sendHeartBeat: boolean = true): Promise<IRawConversation> {
+    public joinConversation(conversationId: string, sendHeartBeat = true): Promise<IRawConversation> {
         const timer = Utilities.timer();
         const conversation: IRawConversation = {
             id: conversationId
@@ -485,7 +484,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         }
     }
 
-    public setDebug(flag: boolean = false): void {
+    public setDebug(flag = false): void {
         this.debug = flag;
     }
 }
