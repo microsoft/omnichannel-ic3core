@@ -139,7 +139,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         return this.sendMessageToIC3(conversationId, messagePayload).then(() => {
             this.liveStateFailureCount = 0;
             return Promise.resolve();
-        }).catch((e: any) => {
+        }).catch((e) => {
             this.liveStateFailureCount++;
             if (this.liveStateFailureCount >= Constants.liveStateRetryCount) {
                 this.logger?.log(LogLevel.ERROR, IC3TelemetryEvent.SendLiveStateFailure, {
@@ -458,7 +458,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
     private getMessagesFromBackwardLinkUrl(backwardLinkUrl: string, startTime: number): Promise<IIC3GetMessagesResponse> {
         const startTimeQueryParameter = { startTime };
         const url = Utilities.addQueryParametersToPath(backwardLinkUrl, startTimeQueryParameter);
-        const headers:any  = RequestHelper.getDefaultIC3Headers();
+        const headers: any = RequestHelper.getDefaultIC3Headers();
         headers[HttpHeaders.RegistrationTokenHeader] = this.ic3Info!.RegistrationToken;
         headers[HttpHeaders.ContentTypeHeader] = Constants.ContentTypeJson;
         const requestParameters: IHttpRequestAttributes = {
