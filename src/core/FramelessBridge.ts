@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
 
 import ClientBridge from "./ClientBridge";
 import FileSharingProtocolType from "../model/FileSharingProtocolType";
@@ -98,17 +96,17 @@ export default class FramelessBridge extends ClientBridge {
         return this.protocolAdapter.getMembers(conversation);
     }
 
-    public async registerOnNewMessage(conversation: IRawConversation, callback: (message: IRawMessage) => void) {
+    public async registerOnNewMessage(conversation: IRawConversation, callback: (message: IRawMessage) => void): Promise<void> {
         this.protocolAdapter.registerOnNewMessage(conversation, callback);
         return Promise.resolve();
     }
 
-    public async registerOnThreadUpdate(conversation: IRawConversation, callback: (message: IRawThread) => void) {
+    public async registerOnThreadUpdate(conversation: IRawConversation, callback: (message: IRawThread) => void): Promise<void> {
         this.protocolAdapter.registerOnThreadUpdate(conversation, callback);
         return Promise.resolve();
     }
 
-    public setDebug(flag: boolean = false) {
+    public setDebug(flag = false): void {
         this.protocolAdapter.setDebug(flag);
     }
 }
