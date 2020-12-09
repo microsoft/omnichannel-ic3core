@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable security/detect-object-injection */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
 
 import Constants from '../common/Constants';
 import HostType from "../interfaces/HostType";
@@ -44,11 +42,11 @@ export default class IC3ClientV1Adapter extends IC3ClientAdapter implements IIC3
         this.ic3Initializer = new IC3Initializer();
     }
 
-    public startPolling() {
+    public startPolling(): void {
         super.startPolling();
     }
 
-    public stopPolling() {
+    public stopPolling(): void {
         super.stopPolling();
     }
 
@@ -87,7 +85,7 @@ export default class IC3ClientV1Adapter extends IC3ClientAdapter implements IIC3
             });
     }
 
-    public async dispose() {
+    public async dispose(): Promise<void> {
         this.ic3Initializer?.stopPolling();
         this.heartBeatTimer && clearInterval(this.heartBeatTimer);
         Promise.resolve();
@@ -342,8 +340,8 @@ export default class IC3ClientV1Adapter extends IC3ClientAdapter implements IIC3
             if (currentRetryCount === Constants.stabilizePollMaxRetryCount) {
                 resolve({ newPollIndex: -1, previousPollIndex: -1 });
             } else {
-                let ongoingPollIndex: number = 0;
-                let newPollIndex: number = 0;
+                let ongoingPollIndex = 0;
+                let newPollIndex = 0;
 
                 while (ongoingPollIndex < pollDataFromOngoingPoll.length && newPollIndex < pollDataFromNewPoll.length) {
                     const ongoingPollData = pollDataFromOngoingPoll[ongoingPollIndex];
