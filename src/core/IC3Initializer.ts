@@ -75,7 +75,7 @@ export default class IC3Initializer {
             Description: `Endpoint to poll is ${JSON.stringify(this.ic3Info.RegionGtms.chatService)}`,
             EndpointUrl: this.ic3Info.RegionGtms.chatService,
             EndpointId: this.ic3Info.endpointId
-        } as any);
+        });
 
         const initializeIC3Promise = this.createEndpoint()
             .then(() => this.createSubscription())
@@ -101,7 +101,7 @@ export default class IC3Initializer {
         this.logger?.log(LogLevel.INFO, IC3TelemetryEvent.IC3StartedPolling, {
             EndpointUrl: this.ic3Info.RegionGtms.chatService,
             EndpointId: this.ic3Info.endpointId
-        } as any);
+        });
         this.poller.start();
     }
 
@@ -111,7 +111,7 @@ export default class IC3Initializer {
             Description: `${initializer} stopped polling.`,
             EndpointUrl: this.ic3Info.RegionGtms.chatService,
             EndpointId: this.ic3Info.endpointId
-        } as any);
+        );
 
         if (this.poller) {
             this.poller.stop();
@@ -146,7 +146,7 @@ export default class IC3Initializer {
                 Description: `IC3 endpoint Id is ${this.ic3Info.endpointId}`,
                 EndpointUrl: this.ic3Info.RegionGtms.chatService,
                 EndpointId: this.ic3Info.endpointId
-            } as any);
+            });
 
             if (jqXHR.status === HttpCode.Created && Util.parseChatServiceHostUrl(locationHeader) !== this.ic3Info.RegionGtms.chatService) {
                 this.ic3Info.RegionGtms.chatService = Util.parseChatServiceHostUrl(locationHeader);
@@ -154,7 +154,7 @@ export default class IC3Initializer {
                     Description: `Endpoint changed`,
                     EndpointUrl: this.ic3Info.RegionGtms.chatService,
                     EndpointId: this.ic3Info.endpointId
-                } as any);
+                });
             }
         }
     }
@@ -223,7 +223,7 @@ export default class IC3Initializer {
                 Description: `Endpoint changed`,
                 EndpointUrl: this.ic3Info.RegionGtms.chatService,
                 EndpointId: this.ic3Info.endpointId
-            } as any);
+            });
         }
         const subscriptionIdMatch = locationHeader.match(/\/(\d+)$/);
         if (subscriptionIdMatch) {
@@ -350,7 +350,7 @@ export default class IC3Initializer {
                     ErrorCode: jqXHR.status.toString(),
                     EndpointUrl: this.ic3Info.RegionGtms.chatService,
                     EndpointId: this.ic3Info.endpointId
-            } as any);
+            });
             this.current404RetryCount = 0;
             this.currentOtherRetryCount++;
         }
@@ -369,7 +369,7 @@ export default class IC3Initializer {
                 ExceptionDetails: e,
                 EndpointUrl: this.ic3Info.RegionGtms.chatService,
                 EndpointId: this.ic3Info.endpointId
-            } as any);
+            });
 
             return this.reset().then(() => {
                 return Promise.reject(e.message);
@@ -385,6 +385,6 @@ export default class IC3Initializer {
             Description: `Endpoint changed.`,
             EndpointUrl: this.ic3Info.RegionGtms.chatService,
             EndpointId: this.ic3Info.endpointId
-        } as any);
+        });
     }
 }
