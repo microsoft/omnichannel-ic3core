@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import Constants from '../common/Constants';
 import HttpHeaders from '../http/HttpHeaders';
@@ -44,7 +43,7 @@ export default class AmsHelper {
             type: HttpRequestType.POST,
             url
         };
-        const responseData = await HttpClient.MakeRequest({...requestParameters, url: "https://httpbin.org/post" });
+
         return HttpClient.MakeRequest<any>(requestParameters);
     }
 
@@ -60,8 +59,7 @@ export default class AmsHelper {
             type: HttpRequestType.PUT,
             url
         };
-        const responseData = await HttpClient.MakeRequest({...requestParameters, url: "https://httpbin.org/put" });
-        console.log("EHTESH", responseData);
+
         return HttpClient.MakeRequest<any>(requestParameters);
     }
 
