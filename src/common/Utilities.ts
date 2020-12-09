@@ -1,7 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
-/* eslint-disable no-prototype-builtins */
-/* eslint-disable security/detect-object-injection */
 
 import HttpHeaders from "../http/HttpHeaders";
 import ITimer from "./ITimer";
@@ -46,8 +43,8 @@ export default class Utilities {
                 finalPath += "?";
             }
             for (const queryParamKey in queryParameters) {
-                if (queryParameters.hasOwnProperty(queryParamKey)) {
-                    let queryParamData = queryParamKey + "=" + queryParameters[queryParamKey];
+                if (queryParameters.hasOwnProperty(queryParamKey)) { // eslint-disable-line no-prototype-builtins
+                    let queryParamData = queryParamKey + "=" + queryParameters[queryParamKey]; // eslint-disable-line security/detect-object-injection
                     if (finalPath[finalPath.length - 1] !== "?") {
                         queryParamData = "&" + queryParamData;
                     }
@@ -61,7 +58,7 @@ export default class Utilities {
     public static getResponseHeader(jqXHR: any, headerName: string): string { // eslint-disable-line
         let headerValue;
         if (!Utilities.isNullOrUndefined(jqXHR)) {
-            headerValue = jqXHR.headers[headerName];
+            headerValue = jqXHR.headers[headerName]; // eslint-disable-line security/detect-object-injection
         }
         return headerValue;
     }
