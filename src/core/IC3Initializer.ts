@@ -341,7 +341,7 @@ export default class IC3Initializer {
                 ErrorCode: jqXHR.status.toString(),
                 EndpointUrl: this.ic3Info.RegionGtms.chatService,
                 EndpointId: this.ic3Info.endpointId
-            } as any);
+            });
             this.onRequestCreationFailureRedirect(jqXHR);
         } else {
             // Don't unsubscribe if the endpoint already doesn't exist (729)
