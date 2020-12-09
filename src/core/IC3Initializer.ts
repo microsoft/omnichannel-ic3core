@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import Constants from "../common/Constants";
 import HttpHeaders from "../http/HttpHeaders";
 import IC3PollingV1InterestedResources from "../model/IC3PollingV1InterestedResources";
@@ -111,7 +109,7 @@ export default class IC3Initializer {
             Description: `${initializer} stopped polling.`,
             EndpointUrl: this.ic3Info.RegionGtms.chatService,
             EndpointId: this.ic3Info.endpointId
-        );
+        });
 
         if (this.poller) {
             this.poller.stop();
