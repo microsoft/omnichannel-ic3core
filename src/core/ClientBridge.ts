@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import HostType from "../interfaces/HostType";
@@ -59,7 +58,7 @@ export default abstract class ClientBridge implements IRawSDK {
     public abstract sendMessageToBot(conversation: IRawConversation, botId: string, botMessage: IRawBotMessage): Promise<void>;
     public abstract getMembers(conversation: IRawConversation): Promise<IPerson[]>;
 
-    public setDebug(flag: boolean) {
+    public setDebug(flag: boolean): void {
         this.debug = flag;
     }
 
@@ -86,11 +85,11 @@ export default abstract class ClientBridge implements IRawSDK {
         });
     }
 
-    public async registerOnNewMessage(conversation: IRawConversation, callback: (message: IRawMessage) => void) {
+    public async registerOnNewMessage(conversation: IRawConversation, callback: (message: IRawMessage) => void): Promise<void> {
         return Promise.resolve();
     }
 
-    public async registerOnThreadUpdate(conversation: IRawConversation, callback: (message: IRawThread) => void) {
+    public async registerOnThreadUpdate(conversation: IRawConversation, callback: (message: IRawThread) => void): Promise<void> {
         return Promise.resolve();
     }
 
