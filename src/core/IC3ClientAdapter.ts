@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -71,11 +70,11 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         this.debug = false;
     }
 
-    public startPolling() {
+    public startPolling(): void {
         this.ic3Initializer && this.ic3Initializer.startPolling();
     }
 
-    public stopPolling() {
+    public stopPolling(): void {
         this.ic3Initializer && this.ic3Initializer.stopPolling();
     }
 
@@ -160,7 +159,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
      *
      * @param conversationId Conversation id
      */
-    public sendHeartBeat(conversationId: string) {
+    public sendHeartBeat(conversationId: string): void {
         if (!this.heartBeatTimer) {
             this.debug && console.debug("IC3Core/sendHeartBeat");
             this.sendLiveState(conversationId);
@@ -168,7 +167,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         }
     }
 
-    public stopHeartBeat() {
+    public stopHeartBeat(): void {
         clearInterval(this.heartBeatTimer);
     }
 
@@ -392,7 +391,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         return HttpClient.MakeRequest<any>(requestParameters);
     }
 
-    protected onNewMessage(conversation: IRawConversation, message: IIC3Message, resourceType?: ResourceType) {
+    protected onNewMessage(conversation: IRawConversation, message: IIC3Message, resourceType?: ResourceType): void {
         const timer = Utilities.timer();
         try {
             if (conversation) {
@@ -418,7 +417,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         }
     }
 
-    protected onThreadUpdate(conversation: IRawConversation, message: IIC3Thread) {
+    protected onThreadUpdate(conversation: IRawConversation, message: IIC3Thread): void {
         const timer = Utilities.timer();
         try {
             if (conversation) {
@@ -486,7 +485,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         }
     }
 
-    public setDebug(flag: boolean = false) {
+    public setDebug(flag: boolean = false): void {
         this.debug = flag;
     }
 }
