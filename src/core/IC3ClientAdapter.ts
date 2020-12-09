@@ -118,7 +118,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
             ElapsedTimeInMilliseconds: timer.milliSecondsElapsed,
             EndpointUrl: this.EndpointUrl,
             EndpointId: this.EndpointId
-        } as any);
+        });
 
         if (!Utilities.isNullOrUndefined(sendHeartBeat) && sendHeartBeat === true) {
             this.sendHeartBeat(conversation.id);
@@ -146,7 +146,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
                     ExceptionDetails: e,
                     EndpointUrl: this.EndpointUrl,
                     EndpointId: this.EndpointId
-                } as any);
+                });
                 this.stopHeartBeat();
                 this.liveStateFailureCount = 0;
             }
@@ -212,7 +212,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         this.logger?.log(LogLevel.INFO, IC3TelemetryEvent.RegisterOnNewMessage, {
             EndpointUrl: this.EndpointUrl,
             EndpointId: this.EndpointId
-        } as any);
+        });
         return Promise.resolve();
     }
 
@@ -221,7 +221,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         this.logger?.log(LogLevel.INFO, IC3TelemetryEvent.RegisterOnThreadUpdate, {
             EndpointUrl: this.EndpointUrl,
             EndpointId: this.EndpointId
-        } as any);
+        });
         return Promise.resolve();
     }
 
@@ -411,7 +411,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
                 ElapsedTimeInMilliseconds: elapsedTimeInMilliseconds,
                 EndpointUrl: this.EndpointUrl,
                 EndpointId: this.EndpointId
-            } as any);
+            });
             return;
         }
     }
@@ -435,7 +435,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
                 ElapsedTimeInMilliseconds: elapsedTimeInMilliseconds,
                 EndpointUrl: this.EndpointUrl,
                 EndpointId: this.EndpointId
-            } as any);
+            });
             return;
         }
     }
