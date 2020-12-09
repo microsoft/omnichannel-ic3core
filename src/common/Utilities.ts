@@ -12,11 +12,11 @@ export default class Utilities {
         return Utilities.isNullOrUndefined(obj) || obj.length === 0;
     }
 
-    public static isNullOrUndefined(obj: any): boolean { // eslint-disable-line
+    public static isNullOrUndefined(obj: any): boolean { // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         return (obj === null || obj === undefined);
     }
 
-    public static isPrimitiveString(obj: any): boolean { // eslint-disable-line
+    public static isPrimitiveString(obj: any): boolean { // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         return (typeof obj === "string");
     }
 
@@ -55,7 +55,7 @@ export default class Utilities {
         return finalPath;
     }
 
-    public static getResponseHeader(jqXHR: any, headerName: string): string { // eslint-disable-line
+    public static getResponseHeader(jqXHR: any, headerName: string): string { // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         let headerValue;
         if (!Utilities.isNullOrUndefined(jqXHR)) {
             headerValue = jqXHR.headers[headerName]; // eslint-disable-line security/detect-object-injection
