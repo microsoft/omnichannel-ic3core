@@ -100,14 +100,14 @@ export default class IC3ClientV1Adapter extends IC3ClientAdapter implements IIC3
                     members: thread.members
                 };
                 return conversation;
-            }).catch((ex: any) => {
+            }).catch((ex) => {
                 const elapsedTimeInMilliseconds = timer.milliSecondsElapsed;
                 this.logger && this.logger.log(LogLevel.WARN, IC3TelemetryEvent.JoinConversationV1GetThreadRequestFailed,
                     {
                         Description: `Unable to retrieve thread: ${ex}`,
                         ElapsedTimeInMilliseconds: elapsedTimeInMilliseconds,
                         EndpointUrl: this.EndpointUrl, EndpointId: this.ic3Info!.endpointId
-                    } as any);
+                    });
 
                 this.internalConversationsData[conversation.id] = {
                     id: conversationId,
@@ -266,7 +266,7 @@ export default class IC3ClientV1Adapter extends IC3ClientAdapter implements IIC3
         this.logger && this.logger.log(LogLevel.INFO, IC3TelemetryEvent.UpdateToken, {
             EndpointUrl: this.EndpointUrl,
             EndpointId: this.ic3Info!.endpointId
-        } as any);
+        });
         const pollDataFromOngoingPoll: IIC3EventMessage[] = [];
         const handlePollDataFromOngoingPoll = (pollData: IIC3PollResponse) => {
             if (pollData && pollData.eventMessages) {
@@ -380,7 +380,7 @@ export default class IC3ClientV1Adapter extends IC3ClientAdapter implements IIC3
         this.logger && this.logger.log(LogLevel.INFO, IC3TelemetryEvent.SyncingPollData, {
             EndpointUrl: this.EndpointUrl,
             EndpointId: this.ic3Info!.endpointId
-        } as any);
+        });
 
         let previousPollLastIndex = matchingIC3EventIndex.previousPollIndex;
         let newPollStartIndex = matchingIC3EventIndex.newPollIndex + 1;
