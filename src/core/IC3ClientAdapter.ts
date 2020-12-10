@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import AmsHelper from "../ams/AmsHelper";
 import Constants from "../common/Constants";
 import FileSharingProtocolType from "../model/FileSharingProtocolType";
@@ -65,11 +69,11 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         this.debug = false;
     }
 
-    public startPolling() {
+    public startPolling(): void {
         this.ic3Initializer && this.ic3Initializer.startPolling();
     }
 
-    public stopPolling() {
+    public stopPolling(): void {
         this.ic3Initializer && this.ic3Initializer.stopPolling();
     }
 
@@ -97,7 +101,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         return Promise.resolve();
     }
 
-    public joinConversation(conversationId: string, sendHeartBeat: boolean = true): Promise<IRawConversation> {
+    public joinConversation(conversationId: string, sendHeartBeat = true): Promise<IRawConversation> {
         const timer = Utilities.timer();
         const conversation: IRawConversation = {
             id: conversationId
@@ -114,7 +118,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
             ElapsedTimeInMilliseconds: timer.milliSecondsElapsed,
             EndpointUrl: this.EndpointUrl,
             EndpointId: this.EndpointId
-        } as any);
+        });
 
         if (!Utilities.isNullOrUndefined(sendHeartBeat) && sendHeartBeat === true) {
             this.sendHeartBeat(conversation.id);
@@ -135,14 +139,14 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         return this.sendMessageToIC3(conversationId, messagePayload).then(() => {
             this.liveStateFailureCount = 0;
             return Promise.resolve();
-        }).catch((e: any) => {
+        }).catch((e) => {
             this.liveStateFailureCount++;
             if (this.liveStateFailureCount >= Constants.liveStateRetryCount) {
                 this.logger?.log(LogLevel.ERROR, IC3TelemetryEvent.SendLiveStateFailure, {
                     ExceptionDetails: e,
                     EndpointUrl: this.EndpointUrl,
                     EndpointId: this.EndpointId
-                } as any);
+                });
                 this.stopHeartBeat();
                 this.liveStateFailureCount = 0;
             }
@@ -154,7 +158,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
      *
      * @param conversationId Conversation id
      */
-    public sendHeartBeat(conversationId: string) {
+    public sendHeartBeat(conversationId: string): void {
         if (!this.heartBeatTimer) {
             this.debug && console.debug("IC3Core/sendHeartBeat");
             this.sendLiveState(conversationId);
@@ -162,7 +166,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         }
     }
 
-    public stopHeartBeat() {
+    public stopHeartBeat(): void {
         clearInterval(this.heartBeatTimer);
     }
 
@@ -208,7 +212,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         this.logger?.log(LogLevel.INFO, IC3TelemetryEvent.RegisterOnNewMessage, {
             EndpointUrl: this.EndpointUrl,
             EndpointId: this.EndpointId
-        } as any);
+        });
         return Promise.resolve();
     }
 
@@ -217,7 +221,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         this.logger?.log(LogLevel.INFO, IC3TelemetryEvent.RegisterOnThreadUpdate, {
             EndpointUrl: this.EndpointUrl,
             EndpointId: this.EndpointId
-        } as any);
+        });
         return Promise.resolve();
     }
 
@@ -386,7 +390,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         return HttpClient.MakeRequest<any>(requestParameters);
     }
 
-    protected onNewMessage(conversation: IRawConversation, message: IIC3Message, resourceType?: ResourceType) {
+    protected onNewMessage(conversation: IRawConversation, message: IIC3Message, resourceType?: ResourceType): void {
         const timer = Utilities.timer();
         try {
             if (conversation) {
@@ -407,12 +411,12 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
                 ElapsedTimeInMilliseconds: elapsedTimeInMilliseconds,
                 EndpointUrl: this.EndpointUrl,
                 EndpointId: this.EndpointId
-            } as any);
+            });
             return;
         }
     }
 
-    protected onThreadUpdate(conversation: IRawConversation, message: IIC3Thread) {
+    protected onThreadUpdate(conversation: IRawConversation, message: IIC3Thread): void {
         const timer = Utilities.timer();
         try {
             if (conversation) {
@@ -431,7 +435,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
                 ElapsedTimeInMilliseconds: elapsedTimeInMilliseconds,
                 EndpointUrl: this.EndpointUrl,
                 EndpointId: this.EndpointId
-            } as any);
+            });
             return;
         }
     }
@@ -454,7 +458,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
     private getMessagesFromBackwardLinkUrl(backwardLinkUrl: string, startTime: number): Promise<IIC3GetMessagesResponse> {
         const startTimeQueryParameter = { startTime };
         const url = Utilities.addQueryParametersToPath(backwardLinkUrl, startTimeQueryParameter);
-        const headers:any  = RequestHelper.getDefaultIC3Headers();
+        const headers: any = RequestHelper.getDefaultIC3Headers();
         headers[HttpHeaders.RegistrationTokenHeader] = this.ic3Info!.RegistrationToken;
         headers[HttpHeaders.ContentTypeHeader] = Constants.ContentTypeJson;
         const requestParameters: IHttpRequestAttributes = {
@@ -480,7 +484,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
         }
     }
 
-    public setDebug(flag: boolean = false) {
+    public setDebug(flag = false): void {
         this.debug = flag;
     }
 }

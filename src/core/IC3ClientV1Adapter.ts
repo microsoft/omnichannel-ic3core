@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable security/detect-object-injection */
+
 import Constants from '../common/Constants';
 import HostType from "../interfaces/HostType";
 import HttpHeaders from '../http/HttpHeaders';
@@ -38,11 +42,11 @@ export default class IC3ClientV1Adapter extends IC3ClientAdapter implements IIC3
         this.ic3Initializer = new IC3Initializer();
     }
 
-    public startPolling() {
+    public startPolling(): void {
         super.startPolling();
     }
 
-    public stopPolling() {
+    public stopPolling(): void {
         super.stopPolling();
     }
 
@@ -81,7 +85,7 @@ export default class IC3ClientV1Adapter extends IC3ClientAdapter implements IIC3
             });
     }
 
-    public async dispose() {
+    public async dispose(): Promise<void> {
         this.ic3Initializer?.stopPolling();
         this.heartBeatTimer && clearInterval(this.heartBeatTimer);
         Promise.resolve();
@@ -96,14 +100,14 @@ export default class IC3ClientV1Adapter extends IC3ClientAdapter implements IIC3
                     members: thread.members
                 };
                 return conversation;
-            }).catch((ex: any) => {
+            }).catch((ex) => {
                 const elapsedTimeInMilliseconds = timer.milliSecondsElapsed;
                 this.logger && this.logger.log(LogLevel.WARN, IC3TelemetryEvent.JoinConversationV1GetThreadRequestFailed,
                     {
                         Description: `Unable to retrieve thread: ${ex}`,
                         ElapsedTimeInMilliseconds: elapsedTimeInMilliseconds,
                         EndpointUrl: this.EndpointUrl, EndpointId: this.ic3Info!.endpointId
-                    } as any);
+                    });
 
                 this.internalConversationsData[conversation.id] = {
                     id: conversationId,
@@ -262,7 +266,7 @@ export default class IC3ClientV1Adapter extends IC3ClientAdapter implements IIC3
         this.logger && this.logger.log(LogLevel.INFO, IC3TelemetryEvent.UpdateToken, {
             EndpointUrl: this.EndpointUrl,
             EndpointId: this.ic3Info!.endpointId
-        } as any);
+        });
         const pollDataFromOngoingPoll: IIC3EventMessage[] = [];
         const handlePollDataFromOngoingPoll = (pollData: IIC3PollResponse) => {
             if (pollData && pollData.eventMessages) {
@@ -280,7 +284,7 @@ export default class IC3ClientV1Adapter extends IC3ClientAdapter implements IIC3
         const currentIc3Initializer = this.ic3Initializer!;
         const newIc3Initializer = new IC3Initializer();
 
-        const currentUpdateTokenClearTimeoutHandle: any = this.updateTokenClearTimeoutHandle; // tslint:disable-line:no-any
+        const currentUpdateTokenClearTimeoutHandle: any = this.updateTokenClearTimeoutHandle;
         const currentIc3Info: IIC3Info = this.ic3Info!;
         let newIc3Info: IIC3Info;
         let matchingIC3EventIndex: MatchingIC3EventIndex;
@@ -336,8 +340,8 @@ export default class IC3ClientV1Adapter extends IC3ClientAdapter implements IIC3
             if (currentRetryCount === Constants.stabilizePollMaxRetryCount) {
                 resolve({ newPollIndex: -1, previousPollIndex: -1 });
             } else {
-                let ongoingPollIndex: number = 0;
-                let newPollIndex: number = 0;
+                let ongoingPollIndex = 0;
+                let newPollIndex = 0;
 
                 while (ongoingPollIndex < pollDataFromOngoingPoll.length && newPollIndex < pollDataFromNewPoll.length) {
                     const ongoingPollData = pollDataFromOngoingPoll[ongoingPollIndex];
@@ -376,7 +380,7 @@ export default class IC3ClientV1Adapter extends IC3ClientAdapter implements IIC3
         this.logger && this.logger.log(LogLevel.INFO, IC3TelemetryEvent.SyncingPollData, {
             EndpointUrl: this.EndpointUrl,
             EndpointId: this.ic3Info!.endpointId
-        } as any);
+        });
 
         let previousPollLastIndex = matchingIC3EventIndex.previousPollIndex;
         let newPollStartIndex = matchingIC3EventIndex.newPollIndex + 1;

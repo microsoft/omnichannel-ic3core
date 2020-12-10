@@ -19,16 +19,16 @@ import IIC3V1EndpointRequest from "../interfaces/IIC3V1EndpointRequest";
 import IIC3V1Subscription from "../interfaces/IIC3V1Subscription";
 
 export default class IC3Initializer {
-    public debug: boolean = false;
+    public debug = false;
     private current404RetryCount: number;
     private currentOtherRetryCount: number;
     private skipUnsubscribe: boolean;
     private telemetryMessage: string;
     private errorCode: string;
-    private ic3Info: IIC3Info | any;
-    private poller: Poller | any;
+    private ic3Info: IIC3Info | any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    private poller: Poller | any; // eslint-disable-line @typescript-eslint/no-explicit-any
     private logger?: IRawLogger;
-    private pollDataHandler: (data: any) => void;
+    private pollDataHandler: (data: any) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
 
     constructor() {
         this.current404RetryCount = 0;
@@ -36,7 +36,7 @@ export default class IC3Initializer {
         this.skipUnsubscribe = false;
         this.telemetryMessage = "";
         this.errorCode = '';
-        this.pollDataHandler = (data: any) => {};
+        this.pollDataHandler = (data: any) => {};  // eslint-disable-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any
         this.resetRetryCount();
     }
 
@@ -44,12 +44,12 @@ export default class IC3Initializer {
         this.logger = logger;
     }
 
-    public getPoller() {
+    public getPoller(): any { // eslint-disable-line @typescript-eslint/no-explicit-any
         const pollDataHandler = this.pollDataHandler.bind(this);
         if (!this.poller) {
             this.poller = new Poller(this.ic3Info, pollDataHandler,
                 this.redirectErrorHandler.bind(this),
-                this.onRequestCreationFailure.bind(this) as any
+                this.onRequestCreationFailure.bind(this) as any // eslint-disable-line @typescript-eslint/no-explicit-any
             );
         }
         return this.poller;
@@ -64,7 +64,7 @@ export default class IC3Initializer {
         this.ic3Info = localIc3Info;
     }
 
-    public initializeIC3(pollDataHandler?: (data: any) => void): Promise<IIC3Info> {
+    public initializeIC3(pollDataHandler?: (data: any) => void): Promise<IIC3Info> { // eslint-disable-line @typescript-eslint/no-explicit-any
         if (pollDataHandler) {
             this.pollDataHandler = pollDataHandler;
         }
@@ -73,7 +73,7 @@ export default class IC3Initializer {
             Description: `Endpoint to poll is ${JSON.stringify(this.ic3Info.RegionGtms.chatService)}`,
             EndpointUrl: this.ic3Info.RegionGtms.chatService,
             EndpointId: this.ic3Info.endpointId
-        } as any);
+        });
 
         const initializeIC3Promise = this.createEndpoint()
             .then(() => this.createSubscription())
@@ -87,29 +87,29 @@ export default class IC3Initializer {
         return initializeIC3Promise;
     }
 
-    public startPolling(handlePollData?: (data: any) => void): void {
+    public startPolling(handlePollData?: (data: any) => void): void { // eslint-disable-line @typescript-eslint/no-explicit-any
         const handler = !handlePollData && this.pollDataHandler? this.pollDataHandler.bind(this): this.pollDataHandler;
         if (!this.poller) {
             this.poller = new Poller(this.ic3Info, handler,
                 this.redirectErrorHandler.bind(this),
-                this.onRequestCreationFailure.bind(this) as any
+                this.onRequestCreationFailure.bind(this) as any // eslint-disable-line @typescript-eslint/no-explicit-any
             );
         }
         this.poller.ic3Info = this.ic3Info;
         this.logger?.log(LogLevel.INFO, IC3TelemetryEvent.IC3StartedPolling, {
             EndpointUrl: this.ic3Info.RegionGtms.chatService,
             EndpointId: this.ic3Info.endpointId
-        } as any);
+        });
         this.poller.start();
     }
 
-    public stopPolling(oldInitializer?: boolean) {
+    public stopPolling(oldInitializer?: boolean): void {
         const initializer = oldInitializer ? Constants.oldInitializer : Constants.newInitializer;
         this.logger?.log(LogLevel.INFO, IC3TelemetryEvent.IC3StoppedPolling, {
             Description: `${initializer} stopped polling.`,
             EndpointUrl: this.ic3Info.RegionGtms.chatService,
             EndpointId: this.ic3Info.endpointId
-        } as any);
+        });
 
         if (this.poller) {
             this.poller.stop();
@@ -126,11 +126,11 @@ export default class IC3Initializer {
         this.currentOtherRetryCount = 0;
     }
 
-    private onEndpointCreationFailure(jqXHR: any) {
+    private onEndpointCreationFailure(jqXHR: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
         this.onRequestCreationFailure(jqXHR, Constants.endpointRequestLog);
     }
 
-    private onEndpointCreationSuccess(jqXHR: any) {
+    private onEndpointCreationSuccess(jqXHR: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
         const registrationTokenHeader = Utilities.getResponseHeader(jqXHR, HttpHeaders.SetRegistrationTokenHeader);
         if (!Utilities.isNullOrUndefined(registrationTokenHeader)) {
             this.ic3Info.RegistrationToken = Utilities.getRegistrationTokenValue(registrationTokenHeader);
@@ -138,13 +138,13 @@ export default class IC3Initializer {
         const locationHeader = Utilities.getResponseHeader(jqXHR, HttpHeaders.LocationHeader);
         if (!Utilities.isNullOrUndefined(locationHeader)) {
             // location header value: <CHAT_SERVICE_URL>/v1/users/ME/endpoints/%7B<ENDPOINT_ID>%7D
-            const epidMatch = locationHeader.match(/endpoints\/(%7B[\da-z\-]+%7D)/);
-            (this.ic3Info as any).endpointId = epidMatch && epidMatch[1];
+            const epidMatch = locationHeader.match(/endpoints\/(%7B[\da-z\-]+%7D)/); // eslint-disable-line no-useless-escape
+            this.ic3Info.endpointId = epidMatch && epidMatch[1];
             this.logger?.log(LogLevel.INFO, IC3TelemetryEvent.IC3EndpointCreationSuccess, {
                 Description: `IC3 endpoint Id is ${this.ic3Info.endpointId}`,
                 EndpointUrl: this.ic3Info.RegionGtms.chatService,
                 EndpointId: this.ic3Info.endpointId
-            } as any);
+            });
 
             if (jqXHR.status === HttpCode.Created && Util.parseChatServiceHostUrl(locationHeader) !== this.ic3Info.RegionGtms.chatService) {
                 this.ic3Info.RegionGtms.chatService = Util.parseChatServiceHostUrl(locationHeader);
@@ -152,7 +152,7 @@ export default class IC3Initializer {
                     Description: `Endpoint changed`,
                     EndpointUrl: this.ic3Info.RegionGtms.chatService,
                     EndpointId: this.ic3Info.endpointId
-                } as any);
+                });
             }
         }
     }
@@ -168,7 +168,7 @@ export default class IC3Initializer {
      */
     private createEndpointRequest() {
         const url = ServiceEndpointHelper.getV1EndpointUrl(this.ic3Info.RegionGtms);
-        const headers: any = RequestHelper.getDefaultIC3Headers();
+        const headers: any = RequestHelper.getDefaultIC3Headers(); // eslint-disable-line @typescript-eslint/no-explicit-any
         headers[HttpHeaders.AuthenticationHeader] = HttpHeaders.SkypeTokenHeaderValue + this.ic3Info.SkypeToken;
         headers[HttpHeaders.ContentTypeHeader] = Constants.ContentTypeJson;
         const features = [
@@ -208,11 +208,11 @@ export default class IC3Initializer {
         });
     }
 
-    private onSubscriptionCreationFailure(jqXHR: any) {
+    private onSubscriptionCreationFailure(jqXHR: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
         this.onRequestCreationFailure(jqXHR, Constants.subscriptionRequestLog);
     }
 
-    private onSubscriptionCreationSuccess(jqXHR: any) {
+    private onSubscriptionCreationSuccess(jqXHR: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
         const locationHeader = Utilities.getResponseHeader(jqXHR, HttpHeaders.LocationHeader) || "";
         if (jqXHR.status === HttpCode.Created &&
             !Utilities.isNullOrUndefined(locationHeader) && Util.parseChatServiceHostUrl(locationHeader) !== this.ic3Info.RegionGtms.chatService) {
@@ -221,7 +221,7 @@ export default class IC3Initializer {
                 Description: `Endpoint changed`,
                 EndpointUrl: this.ic3Info.RegionGtms.chatService,
                 EndpointId: this.ic3Info.endpointId
-            } as any);
+            });
         }
         const subscriptionIdMatch = locationHeader.match(/\/(\d+)$/);
         if (subscriptionIdMatch) {
@@ -231,7 +231,7 @@ export default class IC3Initializer {
 
     private createSubscriptionRequest(): Promise<void> {
         const url = ServiceEndpointHelper.getV1SubscriptionUrl(this.ic3Info.RegionGtms);
-        const headers: any = RequestHelper.getDefaultIC3Headers();
+        const headers: any = RequestHelper.getDefaultIC3Headers(); // eslint-disable-line @typescript-eslint/no-explicit-any
         headers[HttpHeaders.RegistrationTokenHeader] = this.ic3Info.RegistrationToken;
         headers[HttpHeaders.ContentTypeHeader] = Constants.ContentTypeJson;
         const payload: IIC3V1Subscription = {
@@ -265,7 +265,7 @@ export default class IC3Initializer {
         return this.createSubscriptionRequest();
     }
 
-    private onSetEndpointPropertyCreationFailure(jqXHR: any) {
+    private onSetEndpointPropertyCreationFailure(jqXHR: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
         this.onRequestCreationFailure(jqXHR, Constants.setPropertiesRequestLog);
     }
 
@@ -274,10 +274,10 @@ export default class IC3Initializer {
             return Promise.resolve();
         }
         const url = ServiceEndpointHelper.getV1SetPropertiesUrl(this.ic3Info.RegionGtms);
-        const payload: any = {};
+        const payload: any = {}; // eslint-disable-line @typescript-eslint/no-explicit-any
         const property = HttpHeaders.SetEndpointProperty;
-        payload[property] = true;
-        const headers: any = RequestHelper.getDefaultIC3Headers();
+        payload[property] = true; // eslint-disable-line security/detect-object-injection
+        const headers: any = RequestHelper.getDefaultIC3Headers(); // eslint-disable-line @typescript-eslint/no-explicit-any
         headers[HttpHeaders.AuthenticationHeader] = HttpHeaders.SkypeTokenHeaderValue + this.ic3Info.SkypeToken;
         headers[HttpHeaders.RegistrationTokenHeader] = this.ic3Info.RegistrationToken;
         headers[HttpHeaders.ContentTypeHeader] = Constants.ContentTypeJson;
@@ -298,7 +298,7 @@ export default class IC3Initializer {
         return HttpClient.MakeRequest<void>(requestParameters);
     }
 
-    private onUnsubscribeCreationFailure(jqXHR: any) {
+    private onUnsubscribeCreationFailure(jqXHR: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
         this.onRequestCreationFailure(jqXHR, Constants.unsubscribeRequestLog);
     }
 
@@ -307,8 +307,8 @@ export default class IC3Initializer {
             this.skipUnsubscribe = true;
             return Promise.resolve();
         }
-        const url = ServiceEndpointHelper.getV1DeleteEndpointUrl(this.ic3Info.RegionGtms, this.ic3Info.endpointId as any);
-        const headers: any = RequestHelper.getDefaultIC3Headers();
+        const url = ServiceEndpointHelper.getV1DeleteEndpointUrl(this.ic3Info.RegionGtms, this.ic3Info.endpointId);
+        const headers: any = RequestHelper.getDefaultIC3Headers(); // eslint-disable-line @typescript-eslint/no-explicit-any
         headers[HttpHeaders.AuthenticationHeader] = HttpHeaders.SkypeTokenHeaderValue + this.ic3Info.SkypeToken;
         headers[HttpHeaders.RegistrationTokenHeader] = this.ic3Info.RegistrationToken;
         headers[HttpHeaders.ContentTypeHeader] = Constants.ContentTypeJson;
@@ -328,7 +328,7 @@ export default class IC3Initializer {
         return HttpClient.MakeRequest<void>(requestParameters);
     }
 
-    private onRequestCreationFailure(jqXHR: any, request: string) {
+    private onRequestCreationFailure(jqXHR: any, request: string) { // eslint-disable-line @typescript-eslint/no-explicit-any
         const locationHeader = Utilities.getResponseHeader(jqXHR, HttpHeaders.LocationHeader);
         this.telemetryMessage = `${request} failed. Error Code: ${jqXHR.status}.`;
         this.errorCode = jqXHR.status.toString();
@@ -339,7 +339,7 @@ export default class IC3Initializer {
                 ErrorCode: jqXHR.status.toString(),
                 EndpointUrl: this.ic3Info.RegionGtms.chatService,
                 EndpointId: this.ic3Info.endpointId
-            } as any);
+            });
             this.onRequestCreationFailureRedirect(jqXHR);
         } else {
             // Don't unsubscribe if the endpoint already doesn't exist (729)
@@ -348,13 +348,13 @@ export default class IC3Initializer {
                     ErrorCode: jqXHR.status.toString(),
                     EndpointUrl: this.ic3Info.RegionGtms.chatService,
                     EndpointId: this.ic3Info.endpointId
-            } as any);
+            });
             this.current404RetryCount = 0;
             this.currentOtherRetryCount++;
         }
     }
 
-    private redirectErrorHandler(e: any): Promise<IIC3Info> {
+    private redirectErrorHandler(e: any): Promise<IIC3Info> { // eslint-disable-line @typescript-eslint/no-explicit-any
         if ((e.message === Constants.Reset_Flag) && this.current404RetryCount <= Constants.retry404Count
             && this.currentOtherRetryCount <= Constants.retryCount) {
             return this.reset().then(() => {
@@ -367,7 +367,7 @@ export default class IC3Initializer {
                 ExceptionDetails: e,
                 EndpointUrl: this.ic3Info.RegionGtms.chatService,
                 EndpointId: this.ic3Info.endpointId
-            } as any);
+            });
 
             return this.reset().then(() => {
                 return Promise.reject(e.message);
@@ -375,7 +375,7 @@ export default class IC3Initializer {
         }
     }
 
-    private onRequestCreationFailureRedirect(jqXHR: any) {
+    private onRequestCreationFailureRedirect(jqXHR: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
         this.current404RetryCount++;
         this.currentOtherRetryCount = 0;
         this.ic3Info.RegionGtms.chatService = Util.parseChatServiceHostUrl(Utilities.getResponseHeader(jqXHR, HttpHeaders.LocationHeader));
@@ -383,6 +383,6 @@ export default class IC3Initializer {
             Description: `Endpoint changed.`,
             EndpointUrl: this.ic3Info.RegionGtms.chatService,
             EndpointId: this.ic3Info.endpointId
-        } as any);
+        });
     }
 }

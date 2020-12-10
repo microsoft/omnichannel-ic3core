@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import IIC3V1Subscription from './IIC3V1Subscription';
 
 export default interface IIC3V1EndpointResponse {

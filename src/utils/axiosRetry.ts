@@ -7,7 +7,7 @@ import IAxiosRetryOptions from "../http/IAxiosRetryOptions";
  * @param axios Axios instance.
  * @param axiosRetryOptions Options for axios retry.
  */
-const axiosRetry = (axios: AxiosInstance, axiosRetryOptions: IAxiosRetryOptions) => {
+const axiosRetry = (axios: AxiosInstance, axiosRetryOptions: IAxiosRetryOptions) => { // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
     const { retries } = axiosRetryOptions;
 
     let currentTry = 0;

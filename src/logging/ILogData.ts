@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import IConversationTelemetryContext from "./IConversationTelemetryContext";
 import IGlobalTelemetryContext from "./IGlobalTelemetryContext";
 import ISDKTelemetryContext from "./ISDKTelemetryContext";

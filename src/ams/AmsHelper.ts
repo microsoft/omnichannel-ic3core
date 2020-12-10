@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import Constants from '../common/Constants';
 import HttpHeaders from '../http/HttpHeaders';
@@ -42,11 +43,11 @@ export default class AmsHelper {
             type: HttpRequestType.POST,
             url
         };
-        const responseData = await HttpClient.MakeRequest({...requestParameters, url: "https://httpbin.org/post" });
-        return HttpClient.MakeRequest<any>(requestParameters); // tslint:disable-line:no-any
+
+        return HttpClient.MakeRequest<any>(requestParameters);
     }
 
-    public static async uploadDocument(documentId: string, file: IFileInfo, ic3Info: IIC3Info): Promise<any> { // tslint:disable-line:no-any
+    public static async uploadDocument(documentId: string, file: IFileInfo, ic3Info: IIC3Info): Promise<any> {
         console.log(`AmsHelper.ts uploadDocument(): ${documentId}, ${file}, ${ic3Info}`);
         const isFileImage = Util.isDocumentTypeImage(file.type);
         const url = ServiceEndpointHelper.getAmsObjectContentUrl(documentId, ic3Info.RegionGtms, isFileImage);
@@ -58,9 +59,8 @@ export default class AmsHelper {
             type: HttpRequestType.PUT,
             url
         };
-        const responseData = await HttpClient.MakeRequest({...requestParameters, url: "https://httpbin.org/put" });
-        console.log("EHTESH", responseData);
-        return HttpClient.MakeRequest<any>(requestParameters); // tslint:disable-line:no-any
+
+        return HttpClient.MakeRequest<any>(requestParameters);
     }
 
     public static getFileStatus(fileInfo: IFileMetadata, ic3Info: IIC3Info): Promise<FileStatus> {
@@ -97,19 +97,18 @@ export default class AmsHelper {
         return new Promise<Blob>((resolve) => {
             this.getViewUri(statusUri, ic3Info).then((vUrl: string) => {
                 const headers = new Headers();
-                /* tslint:disable:no-string-literal object-literal-key-quotes*/
                 headers.append("Authorization", "skype_token " + ic3Info.SkypeToken);
                 headers.append("X-MS-Client-Version", Constants.ClientVersion);
                 if (isFileImage) {
                     headers.append("accept", Constants.AMSAcceptHeaderValue);
                     headers.append("Accept-Encoding", Constants.AMSAcceptEncodingHeaderValue);
                 }
-                /* tslint:enable:no-string-literal object-literal-key-quotes*/
+
                 const requestParameters: RequestInit = {
                     headers,
                     method: HttpRequestType.GET
                 };
-                return fetch(vUrl, requestParameters) // tslint:disable-line:no-any
+                return fetch(vUrl, requestParameters)
                     .then((response) => {
                         resolve((response.blob()));
                     })
@@ -148,7 +147,7 @@ export default class AmsHelper {
 
     private static getViewStatus(url: string, ic3Info: IIC3Info): Promise<IAMSViewResponse> {
         console.log(`AmsHelper.ts getViewStatus(): ${url}, ${ic3Info}`);
-        return new Promise((resolve: () => any) => { // tslint:disable-line:no-any
+        return new Promise((resolve: () => any) => {
             setTimeout(resolve, Constants.DelayForAms);
         }).then(() => {
             const headers = RequestHelper.getDefaultAMSViewHeaders(ic3Info.SkypeToken);
@@ -157,7 +156,7 @@ export default class AmsHelper {
                 type: HttpRequestType.GET,
                 url
             };
-            return HttpClient.MakeRequest<any>(requestParameters) // tslint:disable-line:no-any
+            return HttpClient.MakeRequest<any>(requestParameters)
                 .then((response: IAMSViewResponse): Promise<IAMSViewResponse> => {
                     if (response.status_location && !response.view_state) {
                         return this.getViewStatus(response.status_location, ic3Info);

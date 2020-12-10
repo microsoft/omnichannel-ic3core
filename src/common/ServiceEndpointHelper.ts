@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+
 import Constants from './Constants';
 import HttpHeaders from '../http/HttpHeaders';
 import Utilities from '../common/Utilities';

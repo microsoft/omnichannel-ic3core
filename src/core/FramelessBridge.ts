@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import ClientBridge from "./ClientBridge";
 import FileSharingProtocolType from "../model/FileSharingProtocolType";
 import FileStatus from "../model/FileStatus";
@@ -40,7 +42,7 @@ export default class FramelessBridge extends ClientBridge {
 
     public onRegisterOnThreadUpdate(conversation: IRawConversation): Promise<void> {
         return Promise.resolve();
-    }    
+    }
 
     public initialize(sessionInfo: IInitializationInfo): Promise<void> {
         return this.protocolAdapter.initialize(sessionInfo);
@@ -70,7 +72,7 @@ export default class FramelessBridge extends ClientBridge {
         return this.protocolAdapter.joinConversation(conversationId, sendHeartBeat);
     }
 
-    public sendFileData(conversation: IRawConversation, fileInfo: IFileInfo, fileSharingProtocolType?: FileSharingProtocolType): Promise<IFileMetadata> { 
+    public sendFileData(conversation: IRawConversation, fileInfo: IFileInfo, fileSharingProtocolType?: FileSharingProtocolType): Promise<IFileMetadata> {
         return this.protocolAdapter.sendFileData(conversation, fileInfo, fileSharingProtocolType);
     }
 
@@ -94,17 +96,17 @@ export default class FramelessBridge extends ClientBridge {
         return this.protocolAdapter.getMembers(conversation);
     }
 
-    public async registerOnNewMessage(conversation: IRawConversation, callback: (message: IRawMessage) => void) {
+    public async registerOnNewMessage(conversation: IRawConversation, callback: (message: IRawMessage) => void): Promise<void> {
         this.protocolAdapter.registerOnNewMessage(conversation, callback);
         return Promise.resolve();
     }
 
-    public async registerOnThreadUpdate(conversation: IRawConversation, callback: (message: IRawThread) => void) {
+    public async registerOnThreadUpdate(conversation: IRawConversation, callback: (message: IRawThread) => void): Promise<void> {
         this.protocolAdapter.registerOnThreadUpdate(conversation, callback);
         return Promise.resolve();
     }
 
-    public setDebug(flag: boolean = false) {
+    public setDebug(flag = false): void {
         this.protocolAdapter.setDebug(flag);
     }
 }

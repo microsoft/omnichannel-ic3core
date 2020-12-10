@@ -24,7 +24,7 @@ export default class RawLogger implements IRawLogger {
         }
     }
 
-    public logEvent(logLevel: LogLevel, logData: IIC3SDKLogData) {
+    public logEvent(logLevel: LogLevel, logData: IIC3SDKLogData): void {
         if (this.isLoggingEnabled()) {
             setTimeout(this.logger.logClientSdkTelemetryEvent.bind(this.logger), 0, logLevel, logData);
         }

@@ -1,20 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import HttpHeaders from "../http/HttpHeaders";
 import ITimer from "./ITimer";
 
 export default class Utilities {
-    public static isNullOrEmptyString(s: string) {
+    public static isNullOrEmptyString(s: string): boolean {
         return Utilities.isNullOrUndefined(s) || s === "";
     }
 
-    public static isNullOrUndefinedOrEmptyArray(obj: any[]) {
+    public static isNullOrUndefinedOrEmptyArray(obj: any[]): boolean {
         return Utilities.isNullOrUndefined(obj) || obj.length === 0;
     }
 
-    public static isNullOrUndefined(obj: any) {
+    public static isNullOrUndefined(obj: any): boolean { // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         return (obj === null || obj === undefined);
     }
 
-    public static isPrimitiveString(obj: any) {
+    public static isPrimitiveString(obj: any): boolean { // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         return (typeof obj === "string");
     }
 
@@ -22,11 +24,11 @@ export default class Utilities {
         return (!Utilities.isNullOrUndefined(input) && input.toLowerCase() === "true");
     }
 
-    public static sanitizeUrlWithBackSlash(url: string) {
+    public static sanitizeUrlWithBackSlash(url: string): string {
         return url.endsWith("/") ? url : url + "/";
     }
 
-    public static getRegistrationTokenValue(registrationTokenHeader: string) {
+    public static getRegistrationTokenValue(registrationTokenHeader: string): string {
         const regToken = registrationTokenHeader.match(/registrationToken=(.+); expires=(\d+)/);
         if (regToken && regToken.length >= 2) {
             return HttpHeaders.RegistrationTokenHeaderValue + regToken[1];
@@ -41,8 +43,8 @@ export default class Utilities {
                 finalPath += "?";
             }
             for (const queryParamKey in queryParameters) {
-                if (queryParameters.hasOwnProperty(queryParamKey)) {
-                    let queryParamData = queryParamKey + "=" + queryParameters[queryParamKey];
+                if (queryParameters.hasOwnProperty(queryParamKey)) { // eslint-disable-line no-prototype-builtins
+                    let queryParamData = queryParamKey + "=" + queryParameters[queryParamKey]; // eslint-disable-line security/detect-object-injection
                     if (finalPath[finalPath.length - 1] !== "?") {
                         queryParamData = "&" + queryParamData;
                     }
@@ -53,10 +55,10 @@ export default class Utilities {
         return finalPath;
     }
 
-    public static getResponseHeader(jqXHR: any, headerName: string): string {
+    public static getResponseHeader(jqXHR: any, headerName: string): string { // eslint-disable-line @typescript-eslint/explicit-module-boundary-types
         let headerValue;
         if (!Utilities.isNullOrUndefined(jqXHR)) {
-            headerValue = jqXHR.headers[headerName];
+            headerValue = jqXHR.headers[headerName]; // eslint-disable-line security/detect-object-injection
         }
         return headerValue;
     }
@@ -77,7 +79,7 @@ export default class Utilities {
         };
     }
 
-    public static concatArrays(arr1: any[], arr2: any[]) {
+    public static concatArrays(arr1: any[], arr2: any[]): void {
         if (!Utilities.isNullOrUndefined(arr1) && !Utilities.isNullOrUndefined(arr2)) {
             arr2.forEach((entry) => {
                 arr1.push(entry);

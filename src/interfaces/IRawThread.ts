@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export default interface IRawThread {
     id: string;
     type: string;

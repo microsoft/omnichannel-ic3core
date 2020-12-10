@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import IRawSDK from "../interfaces/IRawSDK";
 import IIC3TelemetryCustomData from "./IIC3TelemetryCustomData";
 import { IIC3SDKLogData } from "./ILogData";

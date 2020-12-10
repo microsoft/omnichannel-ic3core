@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import IIC3Info from "../interfaces/IIC3Info";
 import ServiceEndpointHelper from "../common/ServiceEndpointHelper";
 import V1PollingHelper from "./V1PollingHelper";
@@ -7,7 +10,7 @@ export default class Poller {
     private _onNewData: (data: any) => void;
     private _onError: (error: any) => any;
     private _ic3Info: IIC3Info;
-    private isPolling: boolean = false;
+    private isPolling = false;
     private callbackOnFailure: (jqXHR: any, request: string) => void;
 
     constructor(ic3Info: IIC3Info, onNewData: (data: any) => void, onError: (error: any) => any, callbackOnFailure: (jqXHR: any, request?: string) => void) {

@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-useless-escape */
+
 import Constants from "./Constants";
 import DeliveryMode from "../model/DeliveryMode";
 import FileSharingProtocolType from "../model/FileSharingProtocolType";
@@ -61,7 +65,7 @@ export default class Util {
     }
 
     public static createTypingStatusThreadMessageData(typingStatus: TypingStatus, optionalProperties?: IMessageProperties): IMessagePayload {
-        let messageType: string = "";
+        let messageType = "";
         switch (typingStatus) {
             case TypingStatus.Typing:
                 messageType = MessagePayloadType.ControlTyping;
@@ -151,7 +155,7 @@ export default class Util {
         let name = '';
         let extension = '';
         if (nameAndExtensionMatcher.length > 1) {
-            extension = nameAndExtensionMatcher.pop()!.toLowerCase();
+            extension = nameAndExtensionMatcher.pop()!.toLowerCase(); // eslint-disable-line @typescript-eslint/no-non-null-assertion
             name = nameAndExtensionMatcher.join('.');
         } else {
             extension = '';
@@ -228,8 +232,8 @@ export default class Util {
         return (matches && matches[1]) ? matches[1] : undefined;
     }
 
-    public static isSystemMessage(message: IIC3Message) {
-        let isSystemMessage: boolean = false;
+    public static isSystemMessage(message: IIC3Message): boolean {
+        let isSystemMessage = false;
         if (!Utilities.isNullOrEmptyString(message.messagetype)) {
             isSystemMessage = Util.getSystemMessageTypes().reduce((isSystemMessageTillNow: any, systemMessageType: any) => {
                 return isSystemMessageTillNow || message.messagetype.toLowerCase().indexOf(systemMessageType.toLowerCase()) === 0;

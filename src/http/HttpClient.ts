@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import Utilities from "../common/Utilities";
 import Constants from "../common/Constants";
 import IC3TelemetryEvent from "../logging/IC3TelemetryEvent";
@@ -159,7 +161,7 @@ export class HttpClient {
         return isClientError;
     }
 
-    public static setLogger(logger: IRawLogger) {
+    public static setLogger(logger: IRawLogger): void {
         HttpClient.logger = logger;
     }
 
