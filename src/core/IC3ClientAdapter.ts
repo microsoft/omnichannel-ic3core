@@ -404,7 +404,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
                     }
                 }
             }
-        } catch (e) {
+        } catch (e: any) {
             const elapsedTimeInMilliseconds = timer.milliSecondsElapsed;
             this.logger?.log(LogLevel.ERROR, IC3TelemetryEvent.OnNewMessageFailure, {
                 ExceptionDetails: e,
@@ -428,7 +428,7 @@ export default abstract class IC3ClientAdapter implements IIC3Adapter {
                     });
                 }
             }
-        } catch (e) {
+        } catch (e: any) {
             const elapsedTimeInMilliseconds = timer.milliSecondsElapsed;
             this.logger?.log(LogLevel.ERROR, IC3TelemetryEvent.OnThreadUpdateFailure, {
                 ExceptionDetails: e,
