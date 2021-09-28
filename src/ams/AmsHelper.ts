@@ -147,7 +147,7 @@ export default class AmsHelper {
 
     private static getViewStatus(url: string, ic3Info: IIC3Info): Promise<IAMSViewResponse> {
         console.log(`AmsHelper.ts getViewStatus(): ${url}, ${ic3Info}`);
-        return new Promise((resolve: () => any) => {
+        return new Promise((resolve: (_: unknown) => any) => {
             setTimeout(resolve, Constants.DelayForAms);
         }).then(() => {
             const headers = RequestHelper.getDefaultAMSViewHeaders(ic3Info.SkypeToken);
