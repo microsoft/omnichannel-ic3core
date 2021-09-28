@@ -64,7 +64,6 @@ export default class AmsHelper {
     }
 
     public static getFileStatus(fileInfo: IFileMetadata, ic3Info: IIC3Info): Promise<FileStatus> {
-        console.log(`AmsHelper.ts getFileStatus(): ${fileInfo}, ${ic3Info}`);
         const isFileImage = Util.isImageType(fileInfo.type);
         const url = ServiceEndpointHelper.getAmsStatusUrl(fileInfo.id, ic3Info.RegionGtms, isFileImage);
         return this.getViewStatus(url, ic3Info)
@@ -91,7 +90,6 @@ export default class AmsHelper {
     }
 
     public static downloadDocument(fileMetadata: IFileMetadata, ic3Info: IIC3Info): Promise<Blob> {
-        console.log(`AmsHelper.ts downloadDocument(): ${fileMetadata}, ${ic3Info}`);
         const isFileImage = Util.isImageType(fileMetadata.type);
         const statusUri = ServiceEndpointHelper.getAmsStatusUrl(fileMetadata.id, ic3Info.RegionGtms, isFileImage);
         return new Promise<Blob>((resolve) => {
@@ -120,7 +118,6 @@ export default class AmsHelper {
     }
 
     private static getViewUri(statusUri: string, ic3Info: IIC3Info): Promise<string> {
-        console.log(`AmsHelper.ts getViewUri(): ${statusUri}, ${ic3Info}`);
         return this.getViewStatus(statusUri, ic3Info)
             .then((response: IAMSViewResponse): Promise<string> => {
                 const isScanFailed = response.scan
