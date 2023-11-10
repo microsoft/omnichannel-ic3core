@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.1.3] - 2023-11-10
+### Security
+- Uptake [axios@1.6.0](https://www.npmjs.com/package/axios/v/1.6.0)
+
 ## [0.1.2] - 2021-09-28
 ### Security
 - Uptake [axios@0.21.4](https://www.npmjs.com/package/axios/v/0.21.4)
