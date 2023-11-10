@@ -1,6 +1,6 @@
 {
   "name": "@microsoft/omnichannel-ic3core",
-  "version": "0.1.3",
+  "version": "0.1.4-0",
   "description": "Microsoft Omnichannel IC3Core",
   "files": [
     "lib/**/*"
