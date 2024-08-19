@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.1.4]
 ### Security
 - Uptake [axios@1.7.4](https://www.npmjs.com/package/axios/v/1.7.4)
 
