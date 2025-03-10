@@ -1,18 +1,29 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
-## [Unreleased] 
+## [Unreleased]
+
+### Added
+
+- Uptake [axios@1.8.2](https://www.npmjs.com/package/axios/v/1.8.2)
 
 ## [0.1.4]
+
 ### Security
+
 - Uptake [axios@1.7.4](https://www.npmjs.com/package/axios/v/1.7.4)
 
 ## [0.1.3] - 2023-11-10
+
 ### Security
+
 - Uptake [axios@1.6.0](https://www.npmjs.com/package/axios/v/1.6.0)
 
 ## [0.1.2] - 2021-09-28
+
 ### Security
+
 - Uptake [axios@0.21.4](https://www.npmjs.com/package/axios/v/0.21.4)
 - Uptake [buffer@6.0.3](https://www.npmjs.com/package/buffer/v/6.0.3)
 - Uptake [jest@27.2.2](https://www.npmjs.com/package/jest/v/27.2.2)
@@ -24,13 +35,18 @@ All notable changes to this project will be documented in this file.
 - Uptake [@typescript-eslint/parser@4.32.0](https://www.npmjs.com/package/@typescript-eslint/parser/v/4.32.0)
 
 ## [0.1.1] - 2021-02-16
+
 ### Security
+
 - Fix eslint errors
 - Uptake [axios@0.21.1](https://www.npmjs.com/package/axios/v/0.21.1)
 
 ### Changed
+
 - Uptake [jest@26.6.3](https://www.npmjs.com/package/jest/v/26.6.3)
 
 ## [0.1.0] - 2020-09-21
+
 ### Added
+
 - Initial release of Omnichannel IC3Core v0.1.0
