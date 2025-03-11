@@ -4,8 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-### Security
+## [0.1.5] - 2025-03-11
 
+### Security
 
 - Uptake [axios@1.8.2](https://www.npmjs.com/package/axios/v/1.8.2)
 
