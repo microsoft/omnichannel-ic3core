@@ -146,8 +146,14 @@ export default class IC3Initializer {
                 EndpointId: this.ic3Info.endpointId
             });
 
-            if (jqXHR.status === HttpCode.Created && Util.parseChatServiceHostUrl(locationHeader) !== this.ic3Info.RegionGtms.chatService) {
-                this.ic3Info.RegionGtms.chatService = Util.parseChatServiceHostUrl(locationHeader);
+			const redirectHost = Util.parseChatServiceHostUrl(locationHeader);
+			if (!redirectHost) {
+				this.logger?.log(LogLevel.WARN, IC3TelemetryEvent.OnRequestCreationSuccessRedirect, {
+					Description: "Ignored an invalid endpoint redirect location."
+				});
+			}
+            if (jqXHR.status === HttpCode.Created && redirectHost && redirectHost !== this.ic3Info.RegionGtms.chatService) {
+                this.ic3Info.RegionGtms.chatService = redirectHost;
                 this.logger?.log(LogLevel.WARN, IC3TelemetryEvent.OnRequestCreationSuccessRedirect,{
                     Description: `Endpoint changed`,
                     EndpointUrl: this.ic3Info.RegionGtms.chatService,
@@ -214,9 +220,15 @@ export default class IC3Initializer {
 
     private onSubscriptionCreationSuccess(jqXHR: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
         const locationHeader = Utilities.getResponseHeader(jqXHR, HttpHeaders.LocationHeader) || "";
+		const redirectHost = Util.parseChatServiceHostUrl(locationHeader);
+		if (locationHeader && !redirectHost) {
+			this.logger?.log(LogLevel.WARN, IC3TelemetryEvent.OnRequestCreationSuccessRedirect, {
+				Description: "Ignored an invalid subscription redirect location."
+			});
+		}
         if (jqXHR.status === HttpCode.Created &&
-            !Utilities.isNullOrUndefined(locationHeader) && Util.parseChatServiceHostUrl(locationHeader) !== this.ic3Info.RegionGtms.chatService) {
-            this.ic3Info.RegionGtms.chatService = Util.parseChatServiceHostUrl(locationHeader);
+            redirectHost && redirectHost !== this.ic3Info.RegionGtms.chatService) {
+            this.ic3Info.RegionGtms.chatService = redirectHost;
             this.logger?.log(LogLevel.WARN, IC3TelemetryEvent.OnRequestCreationSuccessRedirect, {
                 Description: `Endpoint changed`,
                 EndpointUrl: this.ic3Info.RegionGtms.chatService,
@@ -378,7 +390,14 @@ export default class IC3Initializer {
     private onRequestCreationFailureRedirect(jqXHR: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
         this.current404RetryCount++;
         this.currentOtherRetryCount = 0;
-        this.ic3Info.RegionGtms.chatService = Util.parseChatServiceHostUrl(Utilities.getResponseHeader(jqXHR, HttpHeaders.LocationHeader));
+		const redirectHost = Util.parseChatServiceHostUrl(Utilities.getResponseHeader(jqXHR, HttpHeaders.LocationHeader));
+		if (!redirectHost) {
+			this.logger?.log(LogLevel.WARN, IC3TelemetryEvent.OnRequestCreationFailureRedirect, {
+				Description: "Ignored an invalid failure redirect location."
+			});
+			return;
+		}
+        this.ic3Info.RegionGtms.chatService = redirectHost;
         this.logger?.log(LogLevel.WARN, IC3TelemetryEvent.OnRequestCreationFailureRedirect,{
             Description: `Endpoint changed.`,
             EndpointUrl: this.ic3Info.RegionGtms.chatService,

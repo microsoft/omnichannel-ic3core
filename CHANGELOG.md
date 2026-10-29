@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+
+- Parse chat service redirect origins using URL host validation and retain the current endpoint when a redirect location is rejected.
+
 ## [0.1.5] - 2025-03-11
 
 ### Security

@@ -322,20 +322,27 @@ export default class Util {
     }
 
     public static getDomainRegexp(): RegExp {
-        return new RegExp(/^(https?:.+?\.microsoft\.com)/i);
+		return /^(https?:\/\/[a-z0-9.-]+\.microsoft\.com)(?=[/?#]|$)/i;
     }
 
-    public static parseDomain(url: string) {
-        const match = url.match(Util.getDomainRegexp());
-        if (match) {
-            return match[1];
-        }
-        return null;
-    }
+	public static parseDomain(url: string): string | null {
+		let parsed: URL;
+		try {
+			parsed = new URL(url);
+		} catch {
+			return null;
+		}
+		if ((parsed.protocol !== "https:" && parsed.protocol !== "http:")
+			|| parsed.username || parsed.password || parsed.port
+			|| !parsed.hostname.endsWith(".microsoft.com")) {
+			return null;
+		}
+		return parsed.origin;
+	}
 
-    public static parseChatServiceHostUrl(url: string): string {
-        return Util.parseDomain(url) as string;
-    }
+	public static parseChatServiceHostUrl(url: string): string | null {
+		return Util.parseDomain(url);
+	}
 
     public static shouldRetryOnFailure(status: number): boolean {
         return (status !== HttpCode.Accepted && status !== HttpCode.Created);
